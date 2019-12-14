@@ -1,0 +1,14 @@
+<div class="componentWrapper">
+  <div class="box">
+    <mat-form-field>
+      <input matInput placeholder="Choose your name" style="padding: 0 15px 0 15px" autocomplete="off" #nameBox>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Paste image addr"
+             value="https://material.angular.io/assets/img/examples/shiba1.jpg" autocomplete="off" #urlBox>
+    </mat-form-field>
+    <br>
+    <button #sendButton mat-raised-button color="primary" (click)="sendClicked(nameBox, urlBox, sendButton)">Set
+    </button>
+  </div>
+</div>

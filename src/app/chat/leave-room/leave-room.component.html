@@ -1,0 +1,9 @@
+<div class="dialogContainer"><h1 mat-dialog-title>Are you sure?</h1>
+  <div mat-dialog-content>
+    <p>Leave room?</p>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button cdkFocusInitial (click)="onNoClick()">No</button>
+    <button mat-button [matDialogClose]="''" >Yes</button>
+  </div>
+</div>

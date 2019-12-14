@@ -1,0 +1,8 @@
+<div class="message-card-container">
+  <mat-card class="message-card" [ngClass]="chatService.isOwnMessage(message)?'own-message':''">
+    <mat-card-header>
+      <span mat-card-avatar [style.background-image]="'url(' + message.sender.pictureUrl + ')'">{{message.sender.name}}</span>
+      <span class="message-content">{{message.content}}</span>
+    </mat-card-header>
+  </mat-card>
+</div>

@@ -1,0 +1,24 @@
+<div class="dialogWrapper">
+  <mat-tab-group>
+    <mat-tab label="Join">
+      <mat-button-toggle-group vertical="true">
+        <mat-button-toggle *ngFor="let room of availableRooms"
+                           (click)="joinRoom(room.id)">{{room.name}}</mat-button-toggle>
+      </mat-button-toggle-group>
+    </mat-tab>
+    <mat-tab label="Create">
+      <form [formGroup]="roomForm">
+        <mat-form-field>
+          <input autocomplete="off" required minlength="4" matInput placeholder="Room name" formControlName="name">
+        </mat-form-field>
+        <mat-checkbox formControlName="priv">Private</mat-checkbox>
+        <div style="margin-top: 170px;">
+          <button mat-stroked-button color="primary" [matDialogClose]="">Cancel</button>
+          <span [matTooltip]="roomForm.valid?'':'Name must be 4 or more characters long.'">
+            <button mat-stroked-button color="primary" [disabled]="roomForm.invalid" (click)="createRoom(roomForm)">Create</button>
+          </span>
+        </div>
+      </form>
+    </mat-tab>
+  </mat-tab-group>
+</div>

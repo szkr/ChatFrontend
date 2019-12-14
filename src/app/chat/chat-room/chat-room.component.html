@@ -1,0 +1,13 @@
+<div *ngIf="room!==undefined" class="box">
+  <div class="row content" #messagesContainer>
+    <app-message *ngFor="let message of room.messages" [message]="message"></app-message>
+  </div>
+  <div class="row footer">
+    <mat-form-field class="padded">
+      <input matInput placeholder="Type a message" autocomplete="off"
+             (keydown.enter)="sendClicked(messageBox, sendButton)" #messageBox class="padded">
+    </mat-form-field>
+    <button #sendButton mat-raised-button color="primary" (click)="sendClicked(messageBox, sendButton)">Send
+    </button>
+  </div>
+</div>

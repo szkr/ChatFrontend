@@ -1,0 +1,33 @@
+.message-card-container {
+  width: 100%;
+  text-align: center;
+}
+
+.mat-card-avatar {
+  width: 60px;
+  height: 60px;
+  background-size: cover;
+  line-height: 135px;
+  font-size: 14px;
+  font-weight: bold;
+  margin-top: -10px;
+  margin-bottom: 5px;
+}
+
+.message-card {
+  max-width: 500px;
+  min-width: 200px;
+  display: inline-block;
+  margin: 5px;
+  position: relative;
+}
+
+.message-content {
+  margin: auto;
+  display: table;
+}
+
+.own-message {
+  border: #851915 1px solid;
+  background-color: rgba(255, 0, 11, 0.2);
+}

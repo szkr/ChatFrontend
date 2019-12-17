@@ -41,21 +41,24 @@ export class ChatService {
   }
 
   joinRoom(id: number): Observable<ChatRoom> {
-    return this.http.get<ChatRoom>('http://' + this.host + '/chat/join/' + id).pipe(tap(r => {
-      if (r !== null) {
-        r.messages = [];
-        r.users = [];
-        this.joinedRooms.push(r);
+    return this.http.get<ChatRoom>('http://' + this.host + '/chat/join/' + id).pipe(tap(room => {
+      if (room !== null) {
+        room.messages = [];
+        room.users = [];
+        this.populateRoomUsers(room).subscribe();
+        this.joinedRooms.push(room);
       }
     }));
   }
 
   createRoom(room: ChatRoom): Observable<ChatRoom> {
-    return this.http.post<ChatRoom>('http://' + this.host + '/chat/create', room).pipe(tap(r => {
-      if (r !== null) {
-        r.messages = [];
-        r.users = [];
-        this.joinedRooms.push(r);
+    return this.http.post<ChatRoom>('http://' + this.host + '/chat/create', room).pipe(tap(room => {
+      if (room !== null) {
+        room.messages = [];
+        room.users.push(this.localUser);
+        room.users = [];
+        this.populateRoomUsers(room).subscribe();
+        this.joinedRooms.push(room);
       }
     }));
   }
@@ -107,13 +110,14 @@ export class ChatService {
       rooms.forEach(room => {
         room.users = [];
         room.messages = [];
+        this.populateRoomUsers(room).subscribe();
       });
     }));
   }
 
   private getUser(id: number): ChatUser {
     if (!this.users.has(id)) {
-      let user = {} as ChatUser;
+      const user = {} as ChatUser;
       user.id = id;
       this.users.set(user.id, user);
       this.http.get<ChatUser>('http://' + this.host + '/chat/user/' + id)
@@ -180,5 +184,14 @@ export class ChatService {
       }
     });
     return r;
+  }
+
+  private populateRoomUsers(room: ChatRoom) {
+    return this.http.get<ChatUser[]>('http://' + this.host + '/chat/room/' + room.id + '/users').pipe(tap(users => {
+      room.users = users;
+      users.forEach(user => {
+        this.users.set(user.id, user);
+      });
+    }));
   }
 }
